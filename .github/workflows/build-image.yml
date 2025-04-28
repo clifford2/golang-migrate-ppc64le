@@ -1,0 +1,33 @@
+# SPDX-FileCopyrightText: © 2025 Clifford Weinmann <https://www.cliffordweinmann.com/>
+# SPDX-License-Identifier: MIT-0
+
+name: Build and publish a container image
+
+on:
+  push:
+    # Configures this workflow to run every time a change is pushed to the branch called `main`.
+    branches: ['main']
+    # Pattern matched specific path
+    paths:
+      - 'build-image.sh'
+
+jobs:
+
+  build-container-images:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      packages: write
+      attestations: write
+      id-token: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Log in to the Container registry
+        run: podman login ghcr.io --username "${{ github.actor }}" --password "${{ secrets.GITHUB_TOKEN }}"
+
+      - name: Build & push container image
+        run: |
+          bash ./build-image.sh
