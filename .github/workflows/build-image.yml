@@ -30,4 +30,4 @@ jobs:
 
       - name: Build & push container image
         run: |
-          bash ./build-image.sh
+          make
