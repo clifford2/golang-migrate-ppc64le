@@ -8,9 +8,13 @@ on:
     # Configures this workflow to run every time a change is pushed to the branch called `main`.
     branches: ['main']
     # Only run if build script changed
-    paths:
-      - 'build-image.sh'
+    # paths:
+    #   - 'build-image.sh'
+  # Allow triggering the workflow manually
   workflow_dispatch:
+  # Weekly scheduled run (UTC)
+  schedule:
+    - cron: '17 1 * * 6'
 
 jobs:
 

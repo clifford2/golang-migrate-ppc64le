@@ -1,5 +1,5 @@
-
-
+# SPDX-FileCopyrightText: © 2025 Clifford Weinmann <https://www.cliffordweinmann.com/>
+# SPDX-License-Identifier: MIT-0
 
 # Use podman or docker?
 ifeq ($(shell command -v podman 2> /dev/null),)
@@ -8,12 +8,21 @@ else
 	CONTAINER_ENGINE := podman
 endif
 
-# Current version
-MIGRATE_VERSION := v4.18.3
-
 # Build the image
 .PHONY: build-image
-build-image:
-	docker run --privileged --rm tonistiigi/binfmt --install ppc64le
-	$(CONTAINER_ENGINE) login ghcr.io/clifford2
-	bash ./build-image.sh
+build-image: check-depends
+	bash ./check-version.sh
+	test -s .version && docker run --privileged --rm tonistiigi/binfmt --install ppc64le
+	test -s .version && $(CONTAINER_ENGINE) login ghcr.io/clifford2
+	test -s .version && bash ./build-image.sh
+
+# Verify that we have all required dependencies installed
+# Written for Ubuntu 24.04
+.PHONY: check-depends
+check-depends:
+	@command -v git || (apt-get update && apt-get install -y git)
+	@command -v bash || (apt-get update && apt-get install -y bash)
+	@command -v podman || (apt-get update && apt-get install -y podman)
+	@command -v curl || (apt-get update && apt-get install -y curl)
+	@command -v jq || (apt-get update && apt-get install -y jq)
+	@command -v docker

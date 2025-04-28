@@ -1,4 +1,4 @@
-:
+:#!/usr/bin/env bash
 # Build <https://github.com/golang-migrate/migrate> container image for ppc64le.
 # Images for amd64 and arm64 are available at <https://hub.docker.com/r/migrate/migrate>.
 #
@@ -7,7 +7,8 @@
 
 # Configure
 arch='ppc64le'
-ver='v4.18.3'
+# ver=$(curl -Ls https://api.github.com/repos/golang-migrate/migrate/releases/latest | jq -r '.name')
+ver=$(cat .version)
 imgtag="${ver}-${arch}"
 
 # Build
@@ -37,8 +38,8 @@ fi
 
 if [ $rc -eq 0 ]
 then
-	echo -e "\nDone"
+	echo "Done"
 else
-	echo -e "\nSomething went wrong"
+	echo "Something went wrong"
 fi
 exit $rc
