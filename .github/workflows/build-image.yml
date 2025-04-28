@@ -34,5 +34,4 @@ jobs:
         run: podman login ghcr.io --username "${{ github.actor }}" --password "${{ secrets.GITHUB_TOKEN }}"
 
       - name: Build & push container image
-        run: |
-          make
+        run: make
