@@ -12,9 +12,8 @@ endif
 .PHONY: build-image
 build-image: check-depends
 	bash ./check-version.sh
-	test -s .version && docker run --privileged --rm tonistiigi/binfmt --install ppc64le
-	test -s .version && $(CONTAINER_ENGINE) login ghcr.io/clifford2
-	test -s .version && bash ./build-image.sh
+	test -s .version && (docker run --privileged --rm tonistiigi/binfmt --install ppc64le && $(CONTAINER_ENGINE) login ghcr.io/clifford2 && bash ./build-image.sh) || echo 'No build required'
+	@rm .version
 
 # Verify that we have all required dependencies installed
 # Written for Ubuntu 24.04
