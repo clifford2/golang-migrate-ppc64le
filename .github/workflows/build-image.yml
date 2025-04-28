@@ -7,9 +7,10 @@ on:
   push:
     # Configures this workflow to run every time a change is pushed to the branch called `main`.
     branches: ['main']
-    # Pattern matched specific path
+    # Only run if build script changed
     paths:
       - 'build-image.sh'
+  workflow_dispatch:
 
 jobs:
 
