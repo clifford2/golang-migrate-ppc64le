@@ -8,6 +8,7 @@
 # Configure
 arch='ppc64le'
 ver=$(curl -Ls https://api.github.com/repos/golang-migrate/migrate/releases/latest | jq -r '.name')
+imgname='ghcr.io/clifford2/migrate'
 imgtag="${ver}-${arch}"
 
 # Try and pull existing image
@@ -23,4 +24,3 @@ else
 	echo "Version ${ver} image needs to be built"
 	echo "${ver}" > .version
 fi
-exit $rc
