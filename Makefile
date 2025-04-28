@@ -16,4 +16,4 @@ MIGRATE_VERSION := v4.18.3
 build-image:
 	docker run --privileged --rm tonistiigi/binfmt --install ppc64le
 	$(CONTAINER_ENGINE) login ghcr.io/clifford2
-	bash ./bin/build-base-image.sh
+	bash ./build-image.sh
