@@ -1,8 +1,20 @@
 # golang-migrate for ppc64le
 
-This code builds a linux/**ppc64le** container image of the [golang-migrate](https://github.com/golang-migrate/migrate) tool.
+## About
 
-For amd64 & arm64 images, see <https://hub.docker.com/r/migrate/migrate>.
+This code builds a linux/**ppc64le** container image of the
+[golang-migrate](https://github.com/golang-migrate/migrate) tool.
+
+For linux/amd64 & linux/arm64 images, see
+<https://hub.docker.com/r/migrate/migrate>.
+
+## TODO
+
+This build is triggered by a GitHub Action weekly scheduled run.
+Scheduled workflows are disabled automatically after 60 days of repository
+inactivity, so I need to find a smarter way to trigger this.
+
+## Manual Build
 
 The build essentially automates these manual steps:
 

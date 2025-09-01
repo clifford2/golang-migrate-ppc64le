@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # Check whether we have a ppc64le container image for the latest version of
-# <https://github.com/golang-migrate/migrate>
+# <https://github.com/golang-migrate/migrate>.
+# This script writes the desired version to a .version file if a new build is
+# required, or creates an empty .version file if no build is required.
 #
 # SPDX-FileCopyrightText: © 2025 Clifford Weinmann <https://www.cliffordweinmann.com/>
 # SPDX-License-Identifier: MIT-0
