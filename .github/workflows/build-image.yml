@@ -1,7 +1,8 @@
+---
 # SPDX-FileCopyrightText: © 2025 Clifford Weinmann <https://www.cliffordweinmann.com/>
 # SPDX-License-Identifier: MIT-0
 
-name: Build and publish a container image
+name: "Build and publish container image"
 
 on:
   push:
@@ -15,24 +16,24 @@ on:
   # Weekly scheduled run (UTC)
   # Scheduled workflows are disabled automatically after 60 days of repository inactivity
   # schedule:
-  #   - cron: '17 1 * * 6'
+  #   - cron: "17 1 * * 6"
 
 jobs:
 
   build-container-images:
-    runs-on: ubuntu-24.04
+    runs-on: "ubuntu-24.04"
     permissions:
-      contents: read
-      packages: write
-      attestations: write
-      id-token: write
+      contents: "read"
+      packages: "write"
+      attestations: "write"
+      id-token: "write"
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - name: "Checkout repository"
+        uses: "actions/checkout@v4"
 
-      - name: Log in to the Container registry
+      - name: "Log in to the Container registry"
         run: podman login ghcr.io --username "${{ github.actor }}" --password "${{ secrets.GITHUB_TOKEN }}"
 
-      - name: Build & push container image
-        run: make
+      - name: "Build & push container image"
+        run: "make"

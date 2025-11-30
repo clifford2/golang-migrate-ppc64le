@@ -1,14 +1,26 @@
-:#!/usr/bin/env bash
+#!/usr/bin/env bash
 # Build <https://github.com/golang-migrate/migrate> container image for ppc64le.
-# Images for amd64 and arm64 are available at <https://hub.docker.com/r/migrate/migrate>.
 #
 # SPDX-FileCopyrightText: © 2025 Clifford Weinmann <https://www.cliffordweinmann.com/>
 # SPDX-License-Identifier: MIT-0
 
 # Configure
 arch='ppc64le'
-# ver=$(curl -Ls https://api.github.com/repos/golang-migrate/migrate/releases/latest | jq -r '.name')
-ver=$(cat .version)
+
+# .version is updated by check-version.sh, with a new version number if
+# a build is required, or an empty file if no build is required.
+if [ -s .version ]
+then
+	ver=$(cat .version)
+else
+	# fallback in case check-version.sh was not run
+	ver=$(curl -Ls https://api.github.com/repos/golang-migrate/migrate/releases/latest | jq -r '.name')
+fi
+if [ -z "${ver}" ]
+then
+	echo "No ${arch} build required"
+	exit 0
+fi
 imgtag="${ver}-${arch}"
 
 # Build
