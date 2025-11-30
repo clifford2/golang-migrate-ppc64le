@@ -13,8 +13,9 @@ on:
   # Allow triggering the workflow manually
   workflow_dispatch:
   # Weekly scheduled run (UTC)
-  schedule:
-    - cron: '17 1 * * 6'
+  # Scheduled workflows are disabled automatically after 60 days of repository inactivity
+  # schedule:
+  #   - cron: '17 1 * * 6'
 
 jobs:
 
